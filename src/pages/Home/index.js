@@ -1,96 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
+import api from '../../services/api';
+import {formatPrice} from '../../util/format';
 
 import { ProductList } from './styles';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-adidas-duramo-lite-20-masculino/02/NQQ-0375-002/NQQ-0375-002_zoom2.jpg?ts=1577985531&ims=326x"
-          alt="Tenis" />
-        <strong>Tenis legal</strong>
-        <span>R$ 129,90</span>
+export default class Home extends Component {
+  state = {
+    products: [],
+  };
 
-        <button>
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />3
-            </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
+  async componentDidMount() {
+    const response = await api.get('products');
 
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-adidas-duramo-lite-20-masculino/02/NQQ-0375-002/NQQ-0375-002_zoom2.jpg?ts=1577985531&ims=326x"
-          alt="Tenis" />
-        <strong>Tenis legal</strong>
-        <span>R$ 129,90</span>
+    const data = response.data.map(product => ({
+       ...product, //copia todos os dados do produto, que ja dentro do response
+       priceFormatted: formatPrice(product.price), //add uma nova var que recebe o ´preço e convente para pt-BR
+    }));
 
-        <button>
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />3
-            </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
+    this.setState({ products: data });
+  }
+  render() {
+    const { products } = this.state;
 
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-adidas-duramo-lite-20-masculino/02/NQQ-0375-002/NQQ-0375-002_zoom2.jpg?ts=1577985531&ims=326x"
-          alt="Tenis" />
-        <strong>Tenis legal</strong>
-        <span>R$ 129,90</span>
+    return (
+      <ProductList>
+        {products.map(product => (
+          <li key={product.id}>
+            <img src={product.image}
+              alt={product.title} />
+            <strong> {product.title} </strong>
+            <span>{product.priceFormatted}</span>
 
-        <button>
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />3
-            </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
+            <button>
+              <div>
+                <MdAddShoppingCart size={16} color="#fff" />3
+             </div>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
+        ))}
 
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-adidas-duramo-lite-20-masculino/02/NQQ-0375-002/NQQ-0375-002_zoom2.jpg?ts=1577985531&ims=326x"
-          alt="Tenis" />
-        <strong>Tenis legal</strong>
-        <span>R$ 129,90</span>
-
-        <button>
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />3
-            </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-adidas-duramo-lite-20-masculino/02/NQQ-0375-002/NQQ-0375-002_zoom2.jpg?ts=1577985531&ims=326x"
-          alt="Tenis" />
-        <strong>Tenis legal</strong>
-        <span>R$ 129,90</span>
-
-        <button>
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />3
-            </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-adidas-duramo-lite-20-masculino/02/NQQ-0375-002/NQQ-0375-002_zoom2.jpg?ts=1577985531&ims=326x"
-          alt="Tenis" />
-        <strong>Tenis legal</strong>
-        <span>R$ 129,90</span>
-
-        <button>
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />3
-            </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-
-    </ProductList>
-  );
+      </ProductList>
+    );
+  }
 }
 
