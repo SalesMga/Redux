@@ -1,19 +1,19 @@
 module.exports = {
-  "env": {
+  env: {
     "browser": true,
     "es6": true
   },
-  "extends": [
+  extends: [
     "plugin:react/recommended",
     "airbnb",
     'prettier',
     'prettier/react'
   ],
-  "globals": {
+  globals: {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parser": "@typescript-eslint/parser",
+  parser: "@typescript-eslint/parser",
   'parser': 'babel-eslint',
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,11 +22,11 @@ module.exports = {
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
+  plugins: [
     "react",
     "@typescript-eslint"
   ],
-  "rules": {
+  rules: {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [
       'warn',
