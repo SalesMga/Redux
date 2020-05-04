@@ -1,9 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { MdRemoveCircleOutline, MdAddCircleOutline, MdDelete } from 'react-icons/md'
 import { Container, ProductTable, Total } from './styles';
 
-function Cart( { cart } ) {
+function Cart({ cart, dispatch }) {
   return (
     <Container>
       <ProductTable>
@@ -42,7 +42,11 @@ function Cart( { cart } ) {
                 <strong>R$ 258,80</strong>
               </td>
               <td>
-                <buttom type="buttom">
+                <buttom type="buttom"
+                  onClick={() =>
+                    dispatch({ type: 'REMOVE_FROM_CART', id: product.id })
+                  }
+                >
                   <MdDelete size={20} color="#7159c1" />
                 </buttom>
               </td>
