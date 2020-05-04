@@ -63,7 +63,7 @@ function Cart( { cart } ) {
   );
 }
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
 });
 
 export default connect(mapStateToProps)(Cart);
